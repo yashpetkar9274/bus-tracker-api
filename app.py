@@ -3,7 +3,6 @@ import json
 import os
 
 app = Flask(__name__)
-
 DATA_FILE = 'data.json'
 
 @app.route("/add", methods=["POST"])
@@ -24,3 +23,8 @@ def add_data():
         json.dump(existing_data, f, indent=4)
 
     return jsonify({"message": "Data saved successfully"}), 200
+
+# 👇 FIX: Bind to 0.0.0.0 and use Render PORT
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
